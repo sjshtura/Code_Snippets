@@ -5,20 +5,33 @@ Functions for estimating electricity prices, eeg levies, remunerations and other
 @author: Shakhawat
 """
 
+from typing import ValuesView
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 from scipy import interpolate
 from scipy.interpolate import InterpolatedUnivariateSpline
 
+def plotting(x,y, title, x_label, y_label, name_plot):
+    fig = plt.figure()
+    values = x
+    plt.plot (x,y)
+    plt.title(title)
+    plt.xlabel(x_label)
+    plt.ylabel(y_label)
+    plt.xticks(x,values)
+    fig.savefig(name_plot, dpi=fig.dpi)
 
-def plotting(x,y, title, x_label, y_label):
-        plt.figure()
-        plt.plot (x,y)
-        plt.title(title)
-        plt.xlabel(x_label)
-        plt.ylabel(y_label)
-        plt.show()
+# def plotting(x,y, title, x_label, y_label):
+#         plt.figure()
+#         plt.plot (x,y)
+#         plt.title(title)
+#         plt.xlabel(x_label)
+#         plt.ylabel(y_label)
+#         plt.show()
+
+
+
 
 def haupt_tarif(data):
     #haupt_tarrif = df_with_data
@@ -137,8 +150,8 @@ if ((val_yearly_demand > 0) & (val_yearly_demand < 2000)):
             ht_new_price = np.append(ht_price, val1)
             print(ht_new_year)
             print(ht_new_price)
-            plotting(ht_new_year, ht_new_price, "HT Price", "Year", "Price")
-            # plotting(nt_new_year, nt_new_price, "NT Price", "Year", "Price")
+            plotting(ht_new_year, ht_new_price, "HT Price", "Year", "Price", "images/HT Price.png")
+            # plotting(nt_new_year, nt_new_price, "NT Price", "Year", "Price", "images/NT Price.png")
 
             nt_industrie_prices_without_VAT = household_prices
             nt_industrie_prices_without_VAT["year"] = nt_industrie_prices_without_VAT["year"].astype(int)
@@ -149,7 +162,7 @@ if ((val_yearly_demand > 0) & (val_yearly_demand < 2000)):
             nt_new_price = np.append(nt_price, val2)
             print(nt_new_year)
             print(nt_new_price)
-            plotting(nt_new_year, nt_new_price, "NT Price", "Year", "Price")
+            plotting(nt_new_year, nt_new_price, "NT Price", "Year", "Price", "images/NT Price.png")
 
         elif (val_ht_nt == 0):
             val1 = input("Enter yearly mean price for electricity: ")
@@ -163,8 +176,8 @@ if ((val_yearly_demand > 0) & (val_yearly_demand < 2000)):
             ht_new_price = np.append(ht_price, (val1*ht_factor))
             print(ht_new_year)
             print(ht_new_price)
-            plotting(ht_new_year, ht_new_price, "HT Price", "Year", "Price")
-            # plotting(nt_new_year, nt_new_price, "NT Price", "Year", "Price")
+            plotting(ht_new_year, ht_new_price, "HT Price", "Year", "Price", "images/HT Price.png")
+            # plotting(nt_new_year, nt_new_price, "NT Price", "Year", "Price", "images/NT Price.png")
 
 
             nt_industrie_prices_without_VAT = household_prices
@@ -176,8 +189,8 @@ if ((val_yearly_demand > 0) & (val_yearly_demand < 2000)):
             nt_new_price = np.append(nt_price, (val1*nt_factor))
             print(nt_new_year)
             print(nt_new_price)
-            # plotting(ht_new_year, ht_new_price, "HT Price", "Year", "Price")
-            plotting(nt_new_year, nt_new_price, "NT Price", "Year", "Price")
+            # plotting(ht_new_year, ht_new_price, "HT Price", "Year", "Price", "images/HT Price.png")
+            plotting(nt_new_year, nt_new_price, "NT Price", "Year", "Price", "images/NT Price.png")
 
 
     elif (val == 2):
@@ -192,8 +205,8 @@ if ((val_yearly_demand > 0) & (val_yearly_demand < 2000)):
         ht_new_price = np.append(ht_price, (f(2021)*ht_factor))
         print(ht_new_year)
         print(ht_new_price)
-        plotting(ht_new_year, ht_new_price, "HT Price", "Year", "Price")
-        # plotting(nt_new_year, nt_new_price, "NT Price", "Year", "Price")
+        plotting(ht_new_year, ht_new_price, "HT Price", "Year", "Price", "images/HT Price.png")
+        # plotting(nt_new_year, nt_new_price, "NT Price", "Year", "Price", "images/NT Price.png")
 
         nt_industrie_prices_without_VAT = household_prices
         nt_industrie_prices_without_VAT["year"] = nt_industrie_prices_without_VAT["year"].astype(int)
@@ -207,8 +220,8 @@ if ((val_yearly_demand > 0) & (val_yearly_demand < 2000)):
         nt_new_price = np.append(nt_price, (f(2021)*nt_factor))
         print(nt_new_year)
         print(nt_new_price)
-        # plotting(ht_new_year, ht_new_price, "HT Price", "Year", "Price")
-        plotting(nt_new_year, nt_new_price, "NT Price", "Year", "Price")
+        # plotting(ht_new_year, ht_new_price, "HT Price", "Year", "Price", "images/HT Price.png")
+        plotting(nt_new_year, nt_new_price, "NT Price", "Year", "Price", "images/NT Price.png")
 
 elif ((val_yearly_demand >= 2000) & (val_yearly_demand <= 20000)):
     print("Do you already know your electricty price?")
@@ -233,8 +246,8 @@ elif ((val_yearly_demand >= 2000) & (val_yearly_demand <= 20000)):
             ht_new_price = np.append(ht_price, val1)
             print(ht_new_year)
             print(ht_new_price)
-            plotting(ht_new_year, ht_new_price, "HT Price", "Year", "Price")
-            # plotting(nt_new_year, nt_new_price, "NT Price", "Year", "Price")
+            plotting(ht_new_year, ht_new_price, "HT Price", "Year", "Price", "images/HT Price.png")
+            # plotting(nt_new_year, nt_new_price, "NT Price", "Year", "Price", "images/NT Price.png")
 
             nt_industrie_prices_without_VAT["year"] = nt_industrie_prices_without_VAT["year"].astype(int)
             nt_year = nt_industrie_prices_without_VAT["year"]
@@ -244,7 +257,7 @@ elif ((val_yearly_demand >= 2000) & (val_yearly_demand <= 20000)):
             nt_new_price = np.append(nt_price, val2)
             print(nt_new_year)
             print(nt_new_price)
-            plotting(nt_new_year, nt_new_price, "NT Price", "Year", "Price")
+            plotting(nt_new_year, nt_new_price, "NT Price", "Year", "Price", "images/NT Price.png")
 
         elif (val_ht_nt == 0):
             val1 = input("Enter yearly mean price for electricity: ")
@@ -259,8 +272,8 @@ elif ((val_yearly_demand >= 2000) & (val_yearly_demand <= 20000)):
             ht_new_price = np.append(ht_price, (val1*ht_factor))
             print(ht_new_year)
             print(ht_new_price)
-            plotting(ht_new_year, ht_new_price, "HT Price", "Year", "Price")
-            # plotting(nt_new_year, nt_new_price, "NT Price", "Year", "Price")
+            plotting(ht_new_year, ht_new_price, "HT Price", "Year", "Price", "images/HT Price.png")
+            # plotting(nt_new_year, nt_new_price, "NT Price", "Year", "Price", "images/NT Price.png")
 
 
             nt_industrie_prices_without_VAT = industrie_prices_without_VAT
@@ -272,8 +285,8 @@ elif ((val_yearly_demand >= 2000) & (val_yearly_demand <= 20000)):
             nt_new_price = np.append(nt_price, (val1*nt_factor))
             print(nt_new_year)
             print(nt_new_price)
-            # plotting(ht_new_year, ht_new_price, "HT Price", "Year", "Price")
-            plotting(nt_new_year, nt_new_price, "NT Price", "Year", "Price")
+            # plotting(ht_new_year, ht_new_price, "HT Price", "Year", "Price", "images/HT Price.png")
+            plotting(nt_new_year, nt_new_price, "NT Price", "Year", "Price", "images/NT Price.png")
 
 
     elif (val == 2):
@@ -290,8 +303,8 @@ elif ((val_yearly_demand >= 2000) & (val_yearly_demand <= 20000)):
         ht_new_price = np.append(ht_price, (f(2021)*ht_factor))
         print(ht_new_year)
         print(ht_new_price)
-        plotting(ht_new_year, ht_new_price, "HT Price", "Year", "Price")
-        # plotting(nt_new_year, nt_new_price, "NT Price", "Year", "Price")
+        plotting(ht_new_year, ht_new_price, "HT Price", "Year", "Price", "images/HT Price.png")
+        # plotting(nt_new_year, nt_new_price, "NT Price", "Year", "Price", "images/NT Price.png")
 
         nt_industrie_prices_without_VAT = industrie_prices_without_VAT
         nt_industrie_prices_without_VAT["year"] = nt_industrie_prices_without_VAT["year"].astype(int)
@@ -305,8 +318,8 @@ elif ((val_yearly_demand >= 2000) & (val_yearly_demand <= 20000)):
         nt_new_price = np.append(nt_price, (f(2021)*nt_factor))
         print(nt_new_year)
         print(nt_new_price)
-        # plotting(ht_new_year, ht_new_price, "HT Price", "Year", "Price")
-        plotting(nt_new_year, nt_new_price, "NT Price", "Year", "Price")
+        # plotting(ht_new_year, ht_new_price, "HT Price", "Year", "Price", "images/HT Price.png")
+        plotting(nt_new_year, nt_new_price, "NT Price", "Year", "Price", "images/NT Price.png")
 
 elif ((val_yearly_demand > 20000) & (val_yearly_demand <= 70000)):
     print("Do you already know your electricty price?")
@@ -332,8 +345,8 @@ elif ((val_yearly_demand > 20000) & (val_yearly_demand <= 70000)):
             ht_new_price = np.append(ht_price, val1)
             print(ht_new_year)
             print(ht_new_price)
-            plotting(ht_new_year, ht_new_price, "HT Price", "Year", "Price")
-            # plotting(nt_new_year, nt_new_price, "NT Price", "Year", "Price")
+            plotting(ht_new_year, ht_new_price, "HT Price", "Year", "Price", "images/HT Price.png")
+            # plotting(nt_new_year, nt_new_price, "NT Price", "Year", "Price", "images/NT Price.png")
 
             nt_industrie_prices_without_VAT = mid_industrie_prices
             nt_industrie_prices_without_VAT["year"] = nt_industrie_prices_without_VAT["year"].astype(int)
@@ -344,7 +357,7 @@ elif ((val_yearly_demand > 20000) & (val_yearly_demand <= 70000)):
             nt_new_price = np.append(nt_price, val2)
             print(nt_new_year)
             print(nt_new_price)
-            plotting(nt_new_year, nt_new_price, "NT Price", "Year", "Price")
+            plotting(nt_new_year, nt_new_price, "NT Price", "Year", "Price", "images/NT Price.png")
 
         elif (val_ht_nt == 0):
             val1 = input("Enter yearly mean price for electricity: ")
@@ -358,8 +371,8 @@ elif ((val_yearly_demand > 20000) & (val_yearly_demand <= 70000)):
             ht_new_price = np.append(ht_price, (val1*ht_factor))
             print(ht_new_year)
             print(ht_new_price)
-            plotting(ht_new_year, ht_new_price, "HT Price", "Year", "Price")
-            # plotting(nt_new_year, nt_new_price, "NT Price", "Year", "Price")
+            plotting(ht_new_year, ht_new_price, "HT Price", "Year", "Price", "images/HT Price.png")
+            # plotting(nt_new_year, nt_new_price, "NT Price", "Year", "Price", "images/NT Price.png")
 
 
             nt_industrie_prices_without_VAT = mid_industrie_prices
@@ -371,8 +384,8 @@ elif ((val_yearly_demand > 20000) & (val_yearly_demand <= 70000)):
             nt_new_price = np.append(nt_price, (val1*nt_factor))
             print(nt_new_year)
             print(nt_new_price)
-            # plotting(ht_new_year, ht_new_price, "HT Price", "Year", "Price")
-            plotting(nt_new_year, nt_new_price, "NT Price", "Year", "Price")
+            # plotting(ht_new_year, ht_new_price, "HT Price", "Year", "Price", "images/HT Price.png")
+            plotting(nt_new_year, nt_new_price, "NT Price", "Year", "Price", "images/NT Price.png")
 
 
     elif (val == 2):
@@ -387,8 +400,8 @@ elif ((val_yearly_demand > 20000) & (val_yearly_demand <= 70000)):
         ht_new_price = np.append(ht_price, (f(2021)*ht_factor))
         print(ht_new_year)
         print(ht_new_price)
-        plotting(ht_new_year, ht_new_price, "HT Price", "Year", "Price")
-        # plotting(nt_new_year, nt_new_price, "NT Price", "Year", "Price")
+        plotting(ht_new_year, ht_new_price, "HT Price", "Year", "Price", "images/HT Price.png")
+        # plotting(nt_new_year, nt_new_price, "NT Price", "Year", "Price", "images/NT Price.png")
 
         nt_industrie_prices_without_VAT = mid_industrie_prices
         nt_industrie_prices_without_VAT["year"] = nt_industrie_prices_without_VAT["year"].astype(int)
@@ -402,8 +415,8 @@ elif ((val_yearly_demand > 20000) & (val_yearly_demand <= 70000)):
         nt_new_price = np.append(nt_price, (f(2021)*nt_factor))
         print(nt_new_year)
         print(nt_new_price)
-        # plotting(ht_new_year, ht_new_price, "HT Price", "Year", "Price")
-        plotting(nt_new_year, nt_new_price, "NT Price", "Year", "Price")
+        # plotting(ht_new_year, ht_new_price, "HT Price", "Year", "Price", "images/HT Price.png")
+        plotting(nt_new_year, nt_new_price, "NT Price", "Year", "Price", "images/NT Price.png")
 
 elif ((val_yearly_demand > 70000) & (val_yearly_demand <= 150000)):
     print("Do you already know your electricty price?")
@@ -429,8 +442,8 @@ elif ((val_yearly_demand > 70000) & (val_yearly_demand <= 150000)):
             ht_new_price = np.append(ht_price, val1)
             print(ht_new_year)
             print(ht_new_price)
-            plotting(ht_new_year, ht_new_price, "HT Price", "Year", "Price")
-            # plotting(nt_new_year, nt_new_price, "NT Price", "Year", "Price")
+            plotting(ht_new_year, ht_new_price, "HT Price", "Year", "Price", "images/HT Price.png")
+            # plotting(nt_new_year, nt_new_price, "NT Price", "Year", "Price", "images/NT Price.png")
 
             nt_industrie_prices_without_VAT = big_industrial_prices_BDEW
             nt_industrie_prices_without_VAT["year"] = nt_industrie_prices_without_VAT["year"].astype(int)
@@ -441,7 +454,7 @@ elif ((val_yearly_demand > 70000) & (val_yearly_demand <= 150000)):
             nt_new_price = np.append(nt_price, val2)
             print(nt_new_year)
             print(nt_new_price)
-            plotting(nt_new_year, nt_new_price, "NT Price", "Year", "Price")
+            plotting(nt_new_year, nt_new_price, "NT Price", "Year", "Price", "images/NT Price.png")
 
         elif (val_ht_nt == 0):
             val1 = input("Enter yearly mean price for electricity: ")
@@ -455,8 +468,8 @@ elif ((val_yearly_demand > 70000) & (val_yearly_demand <= 150000)):
             ht_new_price = np.append(ht_price, (val1*ht_factor))
             print(ht_new_year)
             print(ht_new_price)
-            plotting(ht_new_year, ht_new_price, "HT Price", "Year", "Price")
-            # plotting(nt_new_year, nt_new_price, "NT Price", "Year", "Price")
+            plotting(ht_new_year, ht_new_price, "HT Price", "Year", "Price", "images/HT Price.png")
+            # plotting(nt_new_year, nt_new_price, "NT Price", "Year", "Price", "images/NT Price.png")
 
 
             nt_industrie_prices_without_VAT = big_industrial_prices_BDEW
@@ -468,8 +481,8 @@ elif ((val_yearly_demand > 70000) & (val_yearly_demand <= 150000)):
             nt_new_price = np.append(nt_price, (val1*nt_factor))
             print(nt_new_year)
             print(nt_new_price)
-            # plotting(ht_new_year, ht_new_price, "HT Price", "Year", "Price")
-            plotting(nt_new_year, nt_new_price, "NT Price", "Year", "Price")
+            # plotting(ht_new_year, ht_new_price, "HT Price", "Year", "Price", "images/HT Price.png")
+            plotting(nt_new_year, nt_new_price, "NT Price", "Year", "Price", "images/NT Price.png")
 
 
     elif (val == 2):
@@ -484,8 +497,8 @@ elif ((val_yearly_demand > 70000) & (val_yearly_demand <= 150000)):
         ht_new_price = np.append(ht_price, (f(2021)*ht_factor))
         print(ht_new_year)
         print(ht_new_price)
-        plotting(ht_new_year, ht_new_price, "HT Price", "Year", "Price")
-        # plotting(nt_new_year, nt_new_price, "NT Price", "Year", "Price")
+        plotting(ht_new_year, ht_new_price, "HT Price", "Year", "Price", "images/HT Price.png")
+        # plotting(nt_new_year, nt_new_price, "NT Price", "Year", "Price", "images/NT Price.png")
 
         nt_industrie_prices_without_VAT = big_industrial_prices_BDEW
         nt_industrie_prices_without_VAT["year"] = nt_industrie_prices_without_VAT["year"].astype(int)
@@ -499,8 +512,8 @@ elif ((val_yearly_demand > 70000) & (val_yearly_demand <= 150000)):
         nt_new_price = np.append(nt_price, (f(2021)*nt_factor))
         print(nt_new_year)
         print(nt_new_price)
-        # plotting(ht_new_year, ht_new_price, "HT Price", "Year", "Price")
-        plotting(nt_new_year, nt_new_price, "NT Price", "Year", "Price")
+        # plotting(ht_new_year, ht_new_price, "HT Price", "Year", "Price", "images/HT Price.png")
+        plotting(nt_new_year, nt_new_price, "NT Price", "Year", "Price", "images/NT Price.png")
 
 elif ((val_yearly_demand > 150000)):
     print("Do you already know your electricty price?")
@@ -526,8 +539,8 @@ elif ((val_yearly_demand > 150000)):
             ht_new_price = np.append(ht_price, val1)
             print(ht_new_year)
             print(ht_new_price)
-            plotting(ht_new_year, ht_new_price, "HT Price", "Year", "Price")
-            # plotting(nt_new_year, nt_new_price, "NT Price", "Year", "Price")
+            plotting(ht_new_year, ht_new_price, "HT Price", "Year", "Price", "images/HT Price.png")
+            # plotting(nt_new_year, nt_new_price, "NT Price", "Year", "Price", "images/NT Price.png")
 
             nt_industrie_prices_without_VAT = v_big_industrial_prices_BDEW
             nt_industrie_prices_without_VAT["year"] = nt_industrie_prices_without_VAT["year"].astype(int)
@@ -538,7 +551,7 @@ elif ((val_yearly_demand > 150000)):
             nt_new_price = np.append(nt_price, val2)
             print(nt_new_year)
             print(nt_new_price)
-            plotting(nt_new_year, nt_new_price, "NT Price", "Year", "Price")
+            plotting(nt_new_year, nt_new_price, "NT Price", "Year", "Price", "images/NT Price.png")
 
         elif (val_ht_nt == 0):
             val1 = input("Enter yearly mean price for electricity: ")
@@ -552,8 +565,8 @@ elif ((val_yearly_demand > 150000)):
             ht_new_price = np.append(ht_price, (val1*ht_factor))
             print(ht_new_year)
             print(ht_new_price)
-            plotting(ht_new_year, ht_new_price, "HT Price", "Year", "Price")
-            # plotting(nt_new_year, nt_new_price, "NT Price", "Year", "Price")
+            plotting(ht_new_year, ht_new_price, "HT Price", "Year", "Price", "images/HT Price.png")
+            # plotting(nt_new_year, nt_new_price, "NT Price", "Year", "Price", "images/NT Price.png")
 
 
             nt_industrie_prices_without_VAT = v_big_industrial_prices_BDEW
@@ -565,8 +578,8 @@ elif ((val_yearly_demand > 150000)):
             nt_new_price = np.append(nt_price, (val1*nt_factor))
             print(nt_new_year)
             print(nt_new_price)
-            # plotting(ht_new_year, ht_new_price, "HT Price", "Year", "Price")
-            plotting(nt_new_year, nt_new_price, "NT Price", "Year", "Price")
+            # plotting(ht_new_year, ht_new_price, "HT Price", "Year", "Price", "images/HT Price.png")
+            plotting(nt_new_year, nt_new_price, "NT Price", "Year", "Price", "images/NT Price.png")
 
 
     elif (val == 2):
@@ -581,8 +594,8 @@ elif ((val_yearly_demand > 150000)):
         ht_new_price = np.append(ht_price, (f(2021)*ht_factor))
         print(ht_new_year)
         print(ht_new_price)
-        plotting(ht_new_year, ht_new_price, "HT Price", "Year", "Price")
-        # plotting(nt_new_year, nt_new_price, "NT Price", "Year", "Price")
+        plotting(ht_new_year, ht_new_price, "HT Price", "Year", "Price", "images/HT Price.png")
+        # plotting(nt_new_year, nt_new_price, "NT Price", "Year", "Price", "images/NT Price.png")
 
         nt_industrie_prices_without_VAT = v_big_industrial_prices_BDEW
         nt_industrie_prices_without_VAT["year"] = nt_industrie_prices_without_VAT["year"].astype(int)
@@ -596,5 +609,6 @@ elif ((val_yearly_demand > 150000)):
         nt_new_price = np.append(nt_price, (f(2021)*nt_factor))
         print(nt_new_year)
         print(nt_new_price)
-        # plotting(ht_new_year, ht_new_price, "HT Price", "Year", "Price")
-        plotting(nt_new_year, nt_new_price, "NT Price", "Year", "Price")
+        # plotting(nt_new_year, nt_new_price, "NT Price", "Year", "Price", "images/NT Price.png")
+
+        plotting(nt_new_year, nt_new_price, "NT Price", "Year", "Price", "images/NT Price.png")
