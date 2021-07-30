@@ -144,7 +144,7 @@ if ((val_yearly_demand > 0) & (val_yearly_demand < 2000)):
             ht_industrie_prices_without_VAT = household_prices
             ht_industrie_prices_without_VAT["year"] = ht_industrie_prices_without_VAT["year"].astype(int)
             ht_year = ht_industrie_prices_without_VAT["year"]
-            ht_price = ht_industrie_prices_without_VAT["price"]
+            ht_price = ht_industrie_prices_without_VAT["price"] * ht_factor
 
             ht_new_year = np.append(ht_year, 2021)
             ht_new_price = np.append(ht_price, val1)
@@ -156,7 +156,7 @@ if ((val_yearly_demand > 0) & (val_yearly_demand < 2000)):
             nt_industrie_prices_without_VAT = household_prices
             nt_industrie_prices_without_VAT["year"] = nt_industrie_prices_without_VAT["year"].astype(int)
             nt_year = nt_industrie_prices_without_VAT["year"]
-            nt_price = nt_industrie_prices_without_VAT["price"]
+            nt_price = nt_industrie_prices_without_VAT["price"] * nt_factor
 
             nt_new_year = np.append(nt_year, 2021)
             nt_new_price = np.append(nt_price, val2)
@@ -170,7 +170,7 @@ if ((val_yearly_demand > 0) & (val_yearly_demand < 2000)):
             ht_industrie_prices_without_VAT = household_prices
             ht_industrie_prices_without_VAT["year"] = ht_industrie_prices_without_VAT["year"].astype(int)
             ht_year = ht_industrie_prices_without_VAT["year"]
-            ht_price = ht_industrie_prices_without_VAT["price"]
+            ht_price = ht_industrie_prices_without_VAT["price"] * ht_factor
 
             ht_new_year = np.append(ht_year, 2021)
             ht_new_price = np.append(ht_price, (val1*ht_factor))
@@ -183,7 +183,7 @@ if ((val_yearly_demand > 0) & (val_yearly_demand < 2000)):
             nt_industrie_prices_without_VAT = household_prices
             nt_industrie_prices_without_VAT["year"] = nt_industrie_prices_without_VAT["year"].astype(int)
             nt_year = nt_industrie_prices_without_VAT["year"]
-            nt_price = nt_industrie_prices_without_VAT["price"]
+            nt_price = nt_industrie_prices_without_VAT["price"] * nt_factor
 
             nt_new_year = np.append(nt_year, 2021)
             nt_new_price = np.append(nt_price, (val1*nt_factor))
@@ -197,7 +197,7 @@ if ((val_yearly_demand > 0) & (val_yearly_demand < 2000)):
         ht_industrie_prices_without_VAT = household_prices
         ht_industrie_prices_without_VAT["year"] = ht_industrie_prices_without_VAT["year"].astype(int)
         ht_year = ht_industrie_prices_without_VAT["year"]
-        ht_price = ht_industrie_prices_without_VAT["price"]
+        ht_price = ht_industrie_prices_without_VAT["price"] * ht_factor
         f = interpolate.interp1d(ht_year, ht_price, fill_value = "extrapolate")
         p_2021 = f(2021)
 
@@ -211,7 +211,7 @@ if ((val_yearly_demand > 0) & (val_yearly_demand < 2000)):
         nt_industrie_prices_without_VAT = household_prices
         nt_industrie_prices_without_VAT["year"] = nt_industrie_prices_without_VAT["year"].astype(int)
         nt_year = nt_industrie_prices_without_VAT["year"]
-        nt_price = nt_industrie_prices_without_VAT["price"]
+        nt_price = nt_industrie_prices_without_VAT["price"] * nt_factor
         
         f = interpolate.interp1d(nt_year, nt_price, fill_value = "extrapolate")
         p_2021 = f(2021)
@@ -265,7 +265,7 @@ elif ((val_yearly_demand >= 2000) & (val_yearly_demand <= 20000)):
             ht_industrie_prices_without_VAT = industrie_prices_without_VAT
             ht_industrie_prices_without_VAT["year"] = ht_industrie_prices_without_VAT["year"].astype(int)
             ht_year = ht_industrie_prices_without_VAT["year"]
-            ht_price = ht_industrie_prices_without_VAT["price"]
+            ht_price = ht_industrie_prices_without_VAT["price"] * ht_factor
 
 
             ht_new_year = np.append(ht_year, 2021)
@@ -279,7 +279,7 @@ elif ((val_yearly_demand >= 2000) & (val_yearly_demand <= 20000)):
             nt_industrie_prices_without_VAT = industrie_prices_without_VAT
             nt_industrie_prices_without_VAT["year"] = nt_industrie_prices_without_VAT["year"].astype(int)
             nt_year = nt_industrie_prices_without_VAT["year"]
-            nt_price = nt_industrie_prices_without_VAT["price"]
+            nt_price = nt_industrie_prices_without_VAT["price"] * nt_factor
 
             nt_new_year = np.append(nt_year, 2021)
             nt_new_price = np.append(nt_price, (val1*nt_factor))
@@ -295,7 +295,7 @@ elif ((val_yearly_demand >= 2000) & (val_yearly_demand <= 20000)):
         ht_industrie_prices_without_VAT = industrie_prices_without_VAT
         ht_industrie_prices_without_VAT["year"] = ht_industrie_prices_without_VAT["year"].astype(int)
         ht_year = ht_industrie_prices_without_VAT["year"]
-        ht_price = ht_industrie_prices_without_VAT["price"]
+        ht_price = ht_industrie_prices_without_VAT["price"] * ht_factor
         f = interpolate.interp1d(ht_year, ht_price, fill_value = "extrapolate")
         p_2021 = f(2021)
 
@@ -309,7 +309,7 @@ elif ((val_yearly_demand >= 2000) & (val_yearly_demand <= 20000)):
         nt_industrie_prices_without_VAT = industrie_prices_without_VAT
         nt_industrie_prices_without_VAT["year"] = nt_industrie_prices_without_VAT["year"].astype(int)
         nt_year = nt_industrie_prices_without_VAT["year"]
-        nt_price = nt_industrie_prices_without_VAT["price"]
+        nt_price = nt_industrie_prices_without_VAT["price"] * nt_factor
         
         f = interpolate.interp1d(nt_year, nt_price, fill_value = "extrapolate")
         p_2021 = f(2021)
@@ -339,7 +339,7 @@ elif ((val_yearly_demand > 20000) & (val_yearly_demand <= 70000)):
             ht_industrie_prices_without_VAT = mid_industrie_prices
             ht_industrie_prices_without_VAT["year"] = ht_industrie_prices_without_VAT["year"].astype(int)
             ht_year = ht_industrie_prices_without_VAT["year"]
-            ht_price = ht_industrie_prices_without_VAT["price"]
+            ht_price = ht_industrie_prices_without_VAT["price"] * ht_factor
 
             ht_new_year = np.append(ht_year, 2021)
             ht_new_price = np.append(ht_price, val1)
@@ -351,7 +351,7 @@ elif ((val_yearly_demand > 20000) & (val_yearly_demand <= 70000)):
             nt_industrie_prices_without_VAT = mid_industrie_prices
             nt_industrie_prices_without_VAT["year"] = nt_industrie_prices_without_VAT["year"].astype(int)
             nt_year = nt_industrie_prices_without_VAT["year"]
-            nt_price = nt_industrie_prices_without_VAT["price"]
+            nt_price = nt_industrie_prices_without_VAT["price"] * nt_factor
 
             nt_new_year = np.append(nt_year, 2021)
             nt_new_price = np.append(nt_price, val2)
@@ -365,7 +365,7 @@ elif ((val_yearly_demand > 20000) & (val_yearly_demand <= 70000)):
             ht_industrie_prices_without_VAT = mid_industrie_prices
             ht_industrie_prices_without_VAT["year"] = ht_industrie_prices_without_VAT["year"].astype(int)
             ht_year = ht_industrie_prices_without_VAT["year"]
-            ht_price = ht_industrie_prices_without_VAT["price"]
+            ht_price = ht_industrie_prices_without_VAT["price"] * ht_factor
 
             ht_new_year = np.append(ht_year, 2021)
             ht_new_price = np.append(ht_price, (val1*ht_factor))
@@ -378,7 +378,7 @@ elif ((val_yearly_demand > 20000) & (val_yearly_demand <= 70000)):
             nt_industrie_prices_without_VAT = mid_industrie_prices
             nt_industrie_prices_without_VAT["year"] = nt_industrie_prices_without_VAT["year"].astype(int)
             nt_year = nt_industrie_prices_without_VAT["year"]
-            nt_price = nt_industrie_prices_without_VAT["price"]
+            nt_price = nt_industrie_prices_without_VAT["price"] * nt_factor
 
             nt_new_year = np.append(nt_year, 2021)
             nt_new_price = np.append(nt_price, (val1*nt_factor))
@@ -392,7 +392,7 @@ elif ((val_yearly_demand > 20000) & (val_yearly_demand <= 70000)):
         ht_industrie_prices_without_VAT = mid_industrie_prices
         ht_industrie_prices_without_VAT["year"] = ht_industrie_prices_without_VAT["year"].astype(int)
         ht_year = ht_industrie_prices_without_VAT["year"]
-        ht_price = ht_industrie_prices_without_VAT["price"]
+        ht_price = ht_industrie_prices_without_VAT["price"] * ht_factor
         f = interpolate.interp1d(ht_year, ht_price, fill_value = "extrapolate")
         p_2021 = f(2021)
 
@@ -406,7 +406,7 @@ elif ((val_yearly_demand > 20000) & (val_yearly_demand <= 70000)):
         nt_industrie_prices_without_VAT = mid_industrie_prices
         nt_industrie_prices_without_VAT["year"] = nt_industrie_prices_without_VAT["year"].astype(int)
         nt_year = nt_industrie_prices_without_VAT["year"]
-        nt_price = nt_industrie_prices_without_VAT["price"]
+        nt_price = nt_industrie_prices_without_VAT["price"] * nt_factor
         
         f = interpolate.interp1d(nt_year, nt_price, fill_value = "extrapolate")
         p_2021 = f(2021)
@@ -436,7 +436,7 @@ elif ((val_yearly_demand > 70000) & (val_yearly_demand <= 150000)):
             ht_industrie_prices_without_VAT = big_industrial_prices_BDEW
             ht_industrie_prices_without_VAT["year"] = ht_industrie_prices_without_VAT["year"].astype(int)
             ht_year = ht_industrie_prices_without_VAT["year"]
-            ht_price = ht_industrie_prices_without_VAT["price"]
+            ht_price = ht_industrie_prices_without_VAT["price"] * ht_factor
 
             ht_new_year = np.append(ht_year, 2021)
             ht_new_price = np.append(ht_price, val1)
@@ -448,7 +448,7 @@ elif ((val_yearly_demand > 70000) & (val_yearly_demand <= 150000)):
             nt_industrie_prices_without_VAT = big_industrial_prices_BDEW
             nt_industrie_prices_without_VAT["year"] = nt_industrie_prices_without_VAT["year"].astype(int)
             nt_year = nt_industrie_prices_without_VAT["year"]
-            nt_price = nt_industrie_prices_without_VAT["price"]
+            nt_price = nt_industrie_prices_without_VAT["price"] * nt_factor
 
             nt_new_year = np.append(nt_year, 2021)
             nt_new_price = np.append(nt_price, val2)
@@ -462,7 +462,7 @@ elif ((val_yearly_demand > 70000) & (val_yearly_demand <= 150000)):
             ht_industrie_prices_without_VAT = big_industrial_prices_BDEW
             ht_industrie_prices_without_VAT["year"] = ht_industrie_prices_without_VAT["year"].astype(int)
             ht_year = ht_industrie_prices_without_VAT["year"]
-            ht_price = ht_industrie_prices_without_VAT["price"]
+            ht_price = ht_industrie_prices_without_VAT["price"] * ht_factor
 
             ht_new_year = np.append(ht_year, 2021)
             ht_new_price = np.append(ht_price, (val1*ht_factor))
@@ -475,7 +475,7 @@ elif ((val_yearly_demand > 70000) & (val_yearly_demand <= 150000)):
             nt_industrie_prices_without_VAT = big_industrial_prices_BDEW
             nt_industrie_prices_without_VAT["year"] = nt_industrie_prices_without_VAT["year"].astype(int)
             nt_year = nt_industrie_prices_without_VAT["year"]
-            nt_price = nt_industrie_prices_without_VAT["price"]
+            nt_price = nt_industrie_prices_without_VAT["price"] * nt_factor
 
             nt_new_year = np.append(nt_year, 2021)
             nt_new_price = np.append(nt_price, (val1*nt_factor))
@@ -489,7 +489,7 @@ elif ((val_yearly_demand > 70000) & (val_yearly_demand <= 150000)):
         ht_industrie_prices_without_VAT = big_industrial_prices_BDEW
         ht_industrie_prices_without_VAT["year"] = ht_industrie_prices_without_VAT["year"].astype(int)
         ht_year = ht_industrie_prices_without_VAT["year"]
-        ht_price = ht_industrie_prices_without_VAT["price"]
+        ht_price = ht_industrie_prices_without_VAT["price"] * ht_factor
         f = interpolate.interp1d(ht_year, ht_price, fill_value = "extrapolate")
         p_2021 = f(2021)
 
@@ -503,7 +503,7 @@ elif ((val_yearly_demand > 70000) & (val_yearly_demand <= 150000)):
         nt_industrie_prices_without_VAT = big_industrial_prices_BDEW
         nt_industrie_prices_without_VAT["year"] = nt_industrie_prices_without_VAT["year"].astype(int)
         nt_year = nt_industrie_prices_without_VAT["year"]
-        nt_price = nt_industrie_prices_without_VAT["price"]
+        nt_price = nt_industrie_prices_without_VAT["price"] * nt_factor
         
         f = interpolate.interp1d(nt_year, nt_price, fill_value = "extrapolate")
         p_2021 = f(2021)
@@ -533,7 +533,7 @@ elif ((val_yearly_demand > 150000)):
             ht_industrie_prices_without_VAT = v_big_industrial_prices_BDEW
             ht_industrie_prices_without_VAT["year"] = ht_industrie_prices_without_VAT["year"].astype(int)
             ht_year = ht_industrie_prices_without_VAT["year"]
-            ht_price = ht_industrie_prices_without_VAT["price"]
+            ht_price = ht_industrie_prices_without_VAT["price"] * ht_factor
 
             ht_new_year = np.append(ht_year, 2021)
             ht_new_price = np.append(ht_price, val1)
@@ -545,7 +545,7 @@ elif ((val_yearly_demand > 150000)):
             nt_industrie_prices_without_VAT = v_big_industrial_prices_BDEW
             nt_industrie_prices_without_VAT["year"] = nt_industrie_prices_without_VAT["year"].astype(int)
             nt_year = nt_industrie_prices_without_VAT["year"]
-            nt_price = nt_industrie_prices_without_VAT["price"]
+            nt_price = nt_industrie_prices_without_VAT["price"] * nt_factor
 
             nt_new_year = np.append(nt_year, 2021)
             nt_new_price = np.append(nt_price, val2)
@@ -559,7 +559,7 @@ elif ((val_yearly_demand > 150000)):
             ht_industrie_prices_without_VAT = v_big_industrial_prices_BDEW
             ht_industrie_prices_without_VAT["year"] = ht_industrie_prices_without_VAT["year"].astype(int)
             ht_year = ht_industrie_prices_without_VAT["year"]
-            ht_price = ht_industrie_prices_without_VAT["price"]
+            ht_price = ht_industrie_prices_without_VAT["price"] * ht_factor
 
             ht_new_year = np.append(ht_year, 2021)
             ht_new_price = np.append(ht_price, (val1*ht_factor))
@@ -572,7 +572,7 @@ elif ((val_yearly_demand > 150000)):
             nt_industrie_prices_without_VAT = v_big_industrial_prices_BDEW
             nt_industrie_prices_without_VAT["year"] = nt_industrie_prices_without_VAT["year"].astype(int)
             nt_year = nt_industrie_prices_without_VAT["year"]
-            nt_price = nt_industrie_prices_without_VAT["price"]
+            nt_price = nt_industrie_prices_without_VAT["price"] * nt_factor
 
             nt_new_year = np.append(nt_year, 2021)
             nt_new_price = np.append(nt_price, (val1*nt_factor))
@@ -586,7 +586,7 @@ elif ((val_yearly_demand > 150000)):
         ht_industrie_prices_without_VAT = v_big_industrial_prices_BDEW
         ht_industrie_prices_without_VAT["year"] = ht_industrie_prices_without_VAT["year"].astype(int)
         ht_year = ht_industrie_prices_without_VAT["year"]
-        ht_price = ht_industrie_prices_without_VAT["price"]
+        ht_price = ht_industrie_prices_without_VAT["price"] * ht_factor
         f = interpolate.interp1d(ht_year, ht_price, fill_value = "extrapolate")
         p_2021 = f(2021)
 
@@ -600,7 +600,7 @@ elif ((val_yearly_demand > 150000)):
         nt_industrie_prices_without_VAT = v_big_industrial_prices_BDEW
         nt_industrie_prices_without_VAT["year"] = nt_industrie_prices_without_VAT["year"].astype(int)
         nt_year = nt_industrie_prices_without_VAT["year"]
-        nt_price = nt_industrie_prices_without_VAT["price"]
+        nt_price = nt_industrie_prices_without_VAT["price"] * nt_factor
         
         f = interpolate.interp1d(nt_year, nt_price, fill_value = "extrapolate")
         p_2021 = f(2021)
