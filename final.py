@@ -2,15 +2,92 @@
 """
 Functions for estimating electricity prices, eeg levies, remunerations and other components, based on customer type and annual demand
 
-@author: Shakhawat
+@author: Christian
 """
-
 from typing import ValuesView
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 from scipy import interpolate
 from scipy.interpolate import InterpolatedUnivariateSpline
+# some historical prices as reference
+
+#ct/kWh prices from the "Daten zur Energiepreisentwicklung" by Destatis (monthly published https://www.destatis.de/DE/Themen/Wirtschaft/Preise/Publikationen/Energiepreise/energiepreisentwicklung-pdf-5619001.html)
+#household 2500-5000 kWh
+household_prices_without_VAT = pd.read_excel(r'C:\Users\Abuzar.Khalid\Documents\DiAnEE\DigA_Tools_Repos\pythonewl\Strompreis\Energiepreisentwicklung.xlsx',sheet_name='5.8.2 Strom - € - Haushalte', skiprows = 5, nrows = 26, index_col = 0)
+household_prices_without_VAT = household_prices_without_VAT.iloc[:,0]
+
+#industrial 2000-20000 MWh
+industrial_prices_without_VAT = pd.read_excel(r'C:\Users\Abuzar.Khalid\Documents\DiAnEE\DigA_Tools_Repos\pythonewl\Strompreis\Energiepreisentwicklung.xlsx',sheet_name='5.8.3 Strom - € - Industrie', skiprows = 5, nrows = 26, index_col = 0)
+industrial_prices_without_VAT = industrial_prices_without_VAT.iloc[:,0]
+
+#BDEW Strompreisanalyse: https://www.bdew.de/media/documents/BDEW-Strompreisanalyse_no_halbjaehrlich_Ba_online_28012021.pdf
+#industrial 160-20000 MWh 
+industrial_prices_BDEW = {'Jahr': range(1998,2022), 'Preis': [9.34, 8.86, 6.05, 6.47, 6.86, 7.98, 8.92, 9.73, 11.53, 11.41, 13.25, 11.4, 12.07, 14.04, 14.33, 15.11, 15.32, 15.23, 15.55, 17.09, 17.96, 18.43, 17.76, 18.25]}
+industrial_prices_BDEW = pd.DataFrame(data=industrial_prices_BDEW)
+
+#industrial 70000-150000 MWh
+big_industrial_prices_BDEW = {'Jahr': range(2007,2021), 'Preis': [7.91, 8.56, 8.69, 8.63, 10.07, 9.26, 10.18, 10.48, 9.76, 8.37, 9.96, 8.96, 9.28, 10.07]}
+big_industrial_prices_BDEW = pd.DataFrame(data=big_industrial_prices_BDEW)
+
+#VAT
+vat = 0.19 # 19% VAT 2021
+
+# possible tax deductibles for large scale companies
+stromsteuer_full = 2.05
+stromsteuer_reduced = 0.75*stromsteuer_full # some production process are exempted completely (§9a Stromsteuergesetz, z.B. Glas, Zement, Metallerzeugung, chemische Reduktionsverfahren)
+
+konzessionsabgabe_ind = 0.11
+konzessionsabgabe_hh = 1.66
+konzessionsabgabe_reduced = 0
+
+# EEG-Umlage, needs to be maintained manually (new values each October): https://www.netztransparenz.de/EEG/EEG-Umlagen-Uebersicht/EEG-Umlage-2021
+eeg_umlage = 6.5 # 2021
+eeg_umlage_red = 0.15*eeg_umlage # für stromkostenintensive Unternehmen gemäß Anlage 4 EEG 2021 für Produktion über 1 GWh, auf erste GWh volle EEG-Umlage
+eeg_umlage_min_a = 0.05 # Aluminium, Blei, Zink- und Zinnerzeugung
+eeg_umlage_min_b = 0.1 # andere stromkostenintensive Unternehmen gemäß Anlage 4 EEG 2021, auch Elektrolyse
+
+#KWKG-Umlage, needs to be maintained manually (new values each October): https://www.netztransparenz.de/KWKG/KWKG-Umlagen-Uebersicht/KWKG-Umlage-2021
+kwkg_umlage = 0.254 # 2021
+kwkg_umlage_red = 0.15 * kwkg_umlage # für stromkostenintensive Unternehmen gemäß Anlage 4 EEG 2021 für Produktion über 1 GWh, auf erste GWh volle KWKG-Umlage
+kwkg_umlage_min = 0.03
+
+# Offshore-Netzumlage, needs to be maintained manually (new values each October): https://www.netztransparenz.de/EnWG/Offshore-Netzumlage/Offshore-Netzumlagen-Uebersicht/Offshore-Netzumlage-2021
+off_umlage = 0.395 # 2021
+off_umlage_red = 0.15 * off_umlage # für stromkostenintensive Unternehmen gemäß Anlage 4 EEG 2021 für Produktion über 1 GWh, auf erste GWh volle Offshore-Netzumlage
+off_umlage_min = 0.03
+
+# Umlage nach § 19 Abs. 2 StromNEV, needs to be maintained manually (new values each October): https://www.netztransparenz.de/EnWG/-19-StromNEV-Umlage/-19-StromNEV-Umlagen-Uebersicht/-19-StromNEV-Umlage-2021 
+nev19_umlage_a = 0.432 # 2021, for the first GWh
+nev19_umlage_b = 0.05 # 2021, for all remaining GWh
+nev19_umlage_c = 0.025 # 2021, for all electricity cost-heavy producers, for all remaining GWh, also atypical grid usage
+
+nev19_discount_a = 0.8 # only 20% are demmanded if using hours surpass 7000 h
+nev19_discount_b = 0.85 # only 15% are demmanded if using hours surpass 7500 h
+nev19_discount_c = 0.9 # only 10% are demmanded if using hours surpass 8000 h
+
+def calculate_mean_price(customer_type, total_demand):
+    """
+    
+    Parameters
+    ----------
+    customer_type : Type of customer, differentiated between household, industrial and GHD
+    total_demand : yearly electricity demand in kWh/y
+    
+    Returns
+    -------
+    mean_price: average price for the customer in the given year in €/kWh
+
+    """
+   
+        
+    
+    
+    
+    mean_price=14
+
+    return mean_price
+
 
 def calculate_mean_price(customer_type, val_yearly_demand):
     """
@@ -658,9 +735,11 @@ def calculate_mean_price(customer_type, val_yearly_demand):
         
         
         
-        mean_price=14
+        # mean_price=14
 
-        return mean_price
+        # return mean_price
 
 
+# Please input customer type in first parameter and total demand as 2nd parameter
+# For Customer type 1: Household and 2: Industrial 
 calculate_mean_price(1,1500)
