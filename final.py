@@ -141,7 +141,7 @@ def calculate_mean_price(customer_type, val_yearly_demand):
     nt_factor = neben_tarif("ht_nt_price.xlsx")
 
 
-    #industrial 20000 - 20000 MWh
+    #industrial 2000 - 20000 MWh
 
     industrie_prices_without_VAT = pd.read_excel(r'/Users/shakhawathossainturag/Downloads/Energiepreisentwicklung.xlsx',sheet_name='5.8.3 Strom - € - Industrie', skiprows = 5, nrows = 26, index_col = 0)
     industrie_prices_without_VAT = industrie_prices_without_VAT.iloc[:,0]
