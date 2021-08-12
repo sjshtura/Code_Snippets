@@ -63,23 +63,6 @@ def calculate_mean_price(customer_type, val_yearly_demand):
     ht_factor = haupt_tarif("ht_nt_price.xlsx")
     nt_factor = neben_tarif("ht_nt_price.xlsx")
 
-    
-    #households 0-2000 MWh
-    household_prices_without_VAT = pd.read_excel(r'Energiepreisentwicklung.xlsx',sheet_name='5.8.2 Strom - € - Haushalte', skiprows = 5, nrows = 26, index_col = 0)
-    household_prices_without_VAT = household_prices_without_VAT.iloc[:,0]
-    household_prices_without_VAT = household_prices_without_VAT.reset_index()
-    household_prices_without_VAT["index"]= household_prices_without_VAT["index"].str.slice(start = 5)
-    household_prices_without_VAT.columns = ["year","price"]
-    household_prices_without_VAT = household_prices_without_VAT.set_index("year")
-    household_prices_without_VAT.index = household_prices_without_VAT.index.astype(str)
-    household_prices_without_VAT.index =  pd.to_datetime(household_prices_without_VAT.index, errors='ignore')
-    household_prices_without_VAT = household_prices_without_VAT.astype(float)
-    household_prices_without_VAT = household_prices_without_VAT.resample('12M').mean()
-    household_prices_without_VAT.index = household_prices_without_VAT.index.astype(str)
-    household_prices_without_VAT.index= household_prices_without_VAT.index.str.slice(start = 0, stop = -6)
-    household_prices_without_VAT = household_prices_without_VAT[6:].reset_index()
-    household_prices_without_VAT = household_prices_without_VAT[household_prices_without_VAT.year >= str(2016)]
-    household_prices_without_VAT
 
     #industrial 20000 - 20000 MWh
     industrie_prices_without_VAT = pd.read_excel(r'Energiepreisentwicklung.xlsx',sheet_name='5.8.3 Strom - € - Industrie', skiprows = 5, nrows = 26, index_col = 0)
@@ -102,28 +85,39 @@ def calculate_mean_price(customer_type, val_yearly_demand):
     industrie_prices_without_VAT = industrie_prices_without_VAT[industrie_prices_without_VAT.year >= str(2016)]
 
 
-
     #industrial 150000 MWh
     v_big_industrial_prices_BDEW = {'year': range(2019,2021), 'price': [3.77,3.05]}
     v_big_industrial_prices_BDEW = pd.DataFrame(data=v_big_industrial_prices_BDEW)
     v_big_industrial_prices_BDEW
 
     #industrial 70000-150000 MWh
-    big_industrial_prices_BDEW = {'year': range(2007,2021), 'price': [7.91, 8.56, 8.69, 8.63, 10.07, 9.26, 10.18, 10.48, 9.76, 8.37, 9.96, 8.96, 9.28, 10.07]}
+    big_industrial_prices_BDEW = {'year': range(2016,2021), 'price': [8.37, 9.96, 8.96, 9.28, 10.07]}
     big_industrial_prices_BDEW = pd.DataFrame(data=big_industrial_prices_BDEW)
-    big_industrial_prices_BDEW = big_industrial_prices_BDEW[big_industrial_prices_BDEW.year >= str(2016)]
     big_industrial_prices_BDEW
 
 
     #industrial 20000-70000 MWh
     mid_industrie_prices = pd.read_excel(r'output.xlsx')
-    mid_industrie_prices.columns = ['year', 'price']    
-    mid_industrie_prices = mid_industrie_prices[mid_industrie_prices.year >= str(2016)]
-
+    mid_industrie_prices.columns = ['year', 'price']
     mid_industrie_prices
 
 
-
+    #households 0-2000 MWh
+    household_prices_without_VAT = pd.read_excel(r'Energiepreisentwicklung.xlsx',sheet_name='5.8.2 Strom - € - Haushalte', skiprows = 5, nrows = 26, index_col = 0)
+    household_prices_without_VAT = household_prices_without_VAT.iloc[:,0]
+    household_prices_without_VAT = household_prices_without_VAT.reset_index()
+    household_prices_without_VAT["index"]= household_prices_without_VAT["index"].str.slice(start = 5)
+    household_prices_without_VAT.columns = ["year","price"]
+    household_prices_without_VAT = household_prices_without_VAT.set_index("year")
+    household_prices_without_VAT.index = household_prices_without_VAT.index.astype(str)
+    household_prices_without_VAT.index =  pd.to_datetime(household_prices_without_VAT.index, errors='ignore')
+    household_prices_without_VAT = household_prices_without_VAT.astype(float)
+    household_prices_without_VAT = household_prices_without_VAT.resample('12M').mean()
+    household_prices_without_VAT.index = household_prices_without_VAT.index.astype(str)
+    household_prices_without_VAT.index= household_prices_without_VAT.index.str.slice(start = 0, stop = -6)
+    household_prices_without_VAT = household_prices_without_VAT[6:].reset_index()
+    household_prices_without_VAT = household_prices_without_VAT[household_prices_without_VAT.year >= str(2016)]
+    household_prices_without_VAT
 
 
     if ((customer_type == 0) & ((val_yearly_demand >= 2500) & (val_yearly_demand <= 5000))):
