@@ -18,11 +18,11 @@ def calculate_mean_price(customer_type, val_yearly_demand):
     Parameters
     ----------
     customer_type : Type of customer, differentiated between household and industrial 
-    total_demand : yearly electricity demand in kWh/y
+    total_demand : yearly electricity demand for household customers in kWh/y and for industrial customers in MWh/y
     
     Returns
     -------
-    mean_price: average price for the customer in the given year in cents/kWh
+    mean_price: average price for the customer for the next year in cents/kWh
 
     """
    
@@ -102,7 +102,8 @@ def calculate_mean_price(customer_type, val_yearly_demand):
     mid_industrie_prices
 
 
-    #households 0-2000 MWh
+    #households 2500-5000 KWh
+    
     household_prices_without_VAT = pd.read_excel(r'Energiepreisentwicklung.xlsx',sheet_name='5.8.2 Strom - € - Haushalte', skiprows = 5, nrows = 26, index_col = 0)
     household_prices_without_VAT = household_prices_without_VAT.iloc[:,0]
     household_prices_without_VAT = household_prices_without_VAT.reset_index()
@@ -322,8 +323,6 @@ def calculate_mean_price(customer_type, val_yearly_demand):
                 print(ht_new_price)
                 plotting(ht_new_year, ht_new_price, "Price", "Year", "Price", "images/Price.png")
                 # plotting(nt_new_year, nt_new_price, "NT Price", "Year", "Price", "images/NT Price.png")
-
-
              
 
         elif (val == 1):
