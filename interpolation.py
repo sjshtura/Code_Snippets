@@ -30,8 +30,11 @@ industrie_prices_without_VAT.head()
 industrie_prices_without_VAT = industrie_prices_without_VAT.reset_index()
 industrie_prices_without_VAT
 
+industrie_prices_without_VAT = industrie_prices_without_VAT[industrie_prices_without_VAT.year >= str(2016)]
+
+
 #industrial 70000-150000 MWh
-big_industrial_prices_BDEW = {'year': range(2008,2021), 'price': [8.56, 8.69, 8.63, 10.07, 9.26, 10.18, 10.48, 9.76, 8.37, 9.96, 8.96, 9.28, 10.07]}
+big_industrial_prices_BDEW = {'year': range(2016,2021), 'price': [8.37, 9.96, 8.96, 9.28, 10.07]}
 big_industrial_prices_BDEW = pd.DataFrame(data=big_industrial_prices_BDEW)
 # big_industrial_prices_BDEW = big_industrial_prices_BDEW.set_index("year")
 big_industrial_prices_BDEW
