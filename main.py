@@ -517,9 +517,17 @@ def calculate_mean_price(customer_type, val_yearly_demand):
 
            
 
-        # return mean_price
-val1 = input("Customer type: ")
-val1 = bool(val1)
-val2 = input("Demand: ")
-val2 = float(val2)
+print("Which type of Customer category you have?")
+print("Enter 0 (zero) for Household customers and 1 (one) for Industrial customers.")        
+val1 = input("Please enter your value: ")
+val1 = int(val1)
+if (val1 == 0):
+    print("What is your yearly electricty demand (in KWh/y)?")
+    val2 =input("Please enter your value: ")
+    val2 = float(val2)
+elif(val1 == 1):
+    val2 = input("What is your yearly electricty demand in (MWh/y)? ")
+    val2 = float(val2)
+    
 calculate_mean_price(val1,val2)
+
