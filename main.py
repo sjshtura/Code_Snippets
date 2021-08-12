@@ -66,7 +66,7 @@ def calculate_mean_price(customer_type, val_yearly_demand):
 
     #industrial 20000 - 20000 MWh
 
-    industrie_prices_without_VAT = pd.read_excel(r'/Users/shakhawathossainturag/Downloads/Energiepreisentwicklung.xlsx',sheet_name='5.8.3 Strom - € - Industrie', skiprows = 5, nrows = 26, index_col = 0)
+    industrie_prices_without_VAT = pd.read_excel(r'Energiepreisentwicklung.xlsx',sheet_name='5.8.3 Strom - € - Industrie', skiprows = 5, nrows = 26, index_col = 0)
     industrie_prices_without_VAT = industrie_prices_without_VAT.iloc[:,0]
     industrie_prices_without_VAT = industrie_prices_without_VAT.reset_index()
 
@@ -112,7 +112,7 @@ def calculate_mean_price(customer_type, val_yearly_demand):
 
 
     #households 0-2000 MWh
-    household_prices_without_VAT = pd.read_excel(r'/Users/shakhawathossainturag/Downloads/Energiepreisentwicklung.xlsx',sheet_name='5.8.2 Strom - € - Haushalte', skiprows = 5, nrows = 26, index_col = 0)
+    household_prices_without_VAT = pd.read_excel(r'Energiepreisentwicklung.xlsx',sheet_name='5.8.2 Strom - € - Haushalte', skiprows = 5, nrows = 26, index_col = 0)
     household_prices_without_VAT = household_prices_without_VAT.iloc[:,0]
     #household_prices_without_VAT.columns = ["year","price"]
     household_prices_without_VAT = household_prices_without_VAT.reset_index()
