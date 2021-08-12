@@ -18,7 +18,7 @@ def calculate_mean_price(customer_type, val_yearly_demand):
     Parameters
     ----------
     customer_type : Type of customer, differentiated between household and industrial 
-    total_demand : yearly electricity demand for household customers in kWh/y and for industrial customers in MWh/y
+    total_demand : yearly electricity demand for household customers in KWh/y and for industrial customers in MWh/y
     
     Returns
     -------
