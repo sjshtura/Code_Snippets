@@ -5,7 +5,7 @@ from scipy import interpolate
 from scipy.interpolate import InterpolatedUnivariateSpline
 from scipy.interpolate import interp1d
 
-industrie_prices_without_VAT = pd.read_excel(r'/Users/shakhawathossainturag/Downloads/Energiepreisentwicklung.xlsx',sheet_name='5.8.3 Strom - € - Industrie', skiprows = 5, nrows = 26, index_col = 0)
+industrie_prices_without_VAT = pd.read_excel(r'Energiepreisentwicklung.xlsx',sheet_name='5.8.3 Strom - € - Industrie', skiprows = 5, nrows = 26, index_col = 0)
 industrie_prices_without_VAT = industrie_prices_without_VAT.iloc[:,0]
 #household_prices_without_VAT.columns = ["year","price"]
 industrie_prices_without_VAT = industrie_prices_without_VAT.reset_index()
