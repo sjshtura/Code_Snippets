@@ -97,7 +97,7 @@ def calculate_mean_price(customer_type, val_yearly_demand):
 
 
     #industrial 20000-70000 MWh
-    mid_industrie_prices = pd.read_excel(r'output.xlsx')
+    mid_industrie_prices = pd.read_excel(r'mid_size_industrial_prices.xlsx')
     mid_industrie_prices.columns = ['year', 'price']
     mid_industrie_prices
 
