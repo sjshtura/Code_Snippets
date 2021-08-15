@@ -137,7 +137,8 @@ def calculate_mean_price(customer_type, val_yearly_demand):
                 val1 = float(val1)
                 val2 = input("Enter NT value: ")
                 val2 = float(val2)
-                # ht_industrie_prices_without_VAT = household_prices
+               
+                """# ht_industrie_prices_without_VAT = household_prices
                 ht_industrie_prices_without_VAT = household_prices_without_VAT
                 ht_industrie_prices_without_VAT["year"] = ht_industrie_prices_without_VAT["year"].astype(int)
                 ht_year = ht_industrie_prices_without_VAT["year"]
@@ -159,39 +160,65 @@ def calculate_mean_price(customer_type, val_yearly_demand):
                 nt_new_price = np.append(nt_price, val2 * nt_factor)
                 print(nt_new_year)
                 print(nt_new_price)
+                plotting(nt_new_year, nt_new_price, "NT Price", "Year", "Price", "images/NT Price.png")"""
+                
+                # ht_industrie_prices_without_VAT = household_prices
+                ht_household_prices_without_VAT = household_prices_without_VAT
+                ht_household_prices_without_VAT["year"] = ht_household_prices_without_VAT["year"].astype(int)
+                ht_year = ht_household_prices_without_VAT["year"]
+                ht_price = ht_household_prices_without_VAT["price"] * ht_factor
+
+                ht_new_year = np.append(ht_year, 2021)
+                ht_new_price = np.append(ht_price, val1 * ht_factor)
+                print(ht_new_year)
+                print(ht_new_price)
+                plotting(ht_new_year, ht_new_price, "HT Price", "Year", "Price", "images/HT Price.png")
+                # plotting(nt_new_year, nt_new_price, "NT Price", "Year", "Price", "images/NT Price.png")
+
+                nt_household_prices_without_VAT = household_prices_without_VAT
+                nt_household_prices_without_VAT["year"] = nt_household_prices_without_VAT["year"].astype(int)
+                nt_year = nt_household_prices_without_VAT["year"]
+                nt_price = nt_household_prices_without_VAT["price"] * nt_factor
+
+                nt_new_year = np.append(nt_year, 2021)
+                nt_new_price = np.append(nt_price, val2 * nt_factor)
+                print(nt_new_year)
+                print(nt_new_price)
                 plotting(nt_new_year, nt_new_price, "NT Price", "Year", "Price", "images/NT Price.png")
+                
+                
 
             elif (val_ht_nt == 0):
                 val1 = input("Enter yearly mean price for electricity: ")
                 val1 = float(val1)
-                ht_industrie_prices_without_VAT = household_prices_without_VAT
-                ht_industrie_prices_without_VAT["year"] = ht_industrie_prices_without_VAT["year"].astype(int)
-                ht_year = ht_industrie_prices_without_VAT["year"]
-                ht_price = ht_industrie_prices_without_VAT["price"]
+                yt_household_prices_without_VAT = household_prices_without_VAT
+                yt_household_prices_without_VAT["year"] = yt_household_prices_without_VAT["year"].astype(int)
+                yt_year = yt_household_prices_without_VAT["year"]
+                yt_price = yt_household_prices_without_VAT["price"]
 
-                ht_new_year = np.append(ht_year, 2021)
-                ht_new_price = np.append(ht_price, (val1))
-                print(ht_new_year)
-                print(ht_new_price)
-                plotting(ht_new_year, ht_new_price, "Price", "Year", "Price", "images/Price.png")
+                yt_new_year = np.append(yt_year, 2021)
+                yt_new_price = np.append(yt_price, (val1))
+                print(yt_new_year)
+                print(yt_new_price)
+                plotting(yt_new_year, yt_new_price, "Price", "Year", "Price", "images/Price.png")
                 # plotting(nt_new_year, nt_new_price, "NT Price", "Year", "Price", "images/NT Price.png")
 
 
 
         elif (val == 1):
-            ht_industrie_prices_without_VAT = household_prices_without_VAT
-            ht_industrie_prices_without_VAT["year"] = ht_industrie_prices_without_VAT["year"].astype(int)
-            ht_year = ht_industrie_prices_without_VAT["year"]
-            ht_price = ht_industrie_prices_without_VAT["price"]
+            yt_household_prices_without_VAT = household_prices_without_VAT
+            yt_household_prices_without_VAT["year"] = yt_household_prices_without_VAT["year"].astype(int)
+            yt_year = yt_household_prices_without_VAT["year"]
+            yt_price = yt_household_prices_without_VAT["price"]
             f = interpolate.interp1d(ht_year, ht_price, fill_value = "extrapolate")
             p_2021 = f(2021)
 
-            ht_new_year = np.append(ht_year, 2021)
-            ht_new_price = np.append(ht_price, (f(2021)))
+            yt_new_year = np.append(yt_year, 2021)
+            yt_new_price = np.append(yt_price, (f(2021)))
             # ht_new_price = ht_new_price * ht_factor
-            print(ht_new_year)
-            print(ht_new_price)
-            plotting(ht_new_year, ht_new_price, "Price", "Year", "Price", "images/Price.png")
+            print(yt_new_year)
+            print(yt_new_price)
+            plotting(yt_new_year, yt_new_price, "Price", "Year", "Price", "images/Price.png")
             # plotting(nt_new_year, nt_new_price, "NT Price", "Year", "Price", "images/NT Price.png")
 
            
