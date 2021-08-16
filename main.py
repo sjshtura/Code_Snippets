@@ -2,7 +2,7 @@
 """
 Functions for estimating electricity prices, eeg levies, remunerations and other components, based on customer type and annual demand
 
-@author: Shakhawat
+@author: Abuzar and Shakhawat
 """
 
 from typing import ValuesView
@@ -137,30 +137,6 @@ def calculate_mean_price(customer_type, val_yearly_demand):
                 val1 = float(val1)
                 val2 = input("Enter NT value: ")
                 val2 = float(val2)
-               
-                """# ht_industrie_prices_without_VAT = household_prices
-                ht_industrie_prices_without_VAT = household_prices_without_VAT
-                ht_industrie_prices_without_VAT["year"] = ht_industrie_prices_without_VAT["year"].astype(int)
-                ht_year = ht_industrie_prices_without_VAT["year"]
-                ht_price = ht_industrie_prices_without_VAT["price"] * ht_factor
-
-                ht_new_year = np.append(ht_year, 2021)
-                ht_new_price = np.append(ht_price, val1 * ht_factor)
-                print(ht_new_year)
-                print(ht_new_price)
-                plotting(ht_new_year, ht_new_price, "HT Price", "Year", "Price", "images/HT Price.png")
-                # plotting(nt_new_year, nt_new_price, "NT Price", "Year", "Price", "images/NT Price.png")
-
-                nt_industrie_prices_without_VAT = household_prices_without_VAT
-                nt_industrie_prices_without_VAT["year"] = nt_industrie_prices_without_VAT["year"].astype(int)
-                nt_year = nt_industrie_prices_without_VAT["year"]
-                nt_price = nt_industrie_prices_without_VAT["price"] * nt_factor
-
-                nt_new_year = np.append(nt_year, 2021)
-                nt_new_price = np.append(nt_price, val2 * nt_factor)
-                print(nt_new_year)
-                print(nt_new_price)
-                plotting(nt_new_year, nt_new_price, "NT Price", "Year", "Price", "images/NT Price.png")"""
                 
                 # ht_industrie_prices_without_VAT = household_prices
                 ht_household_prices_without_VAT = household_prices_without_VAT
