@@ -186,7 +186,7 @@ def calculate_mean_price(customer_type, val_yearly_demand):
             yt_household_prices_without_VAT["year"] = yt_household_prices_without_VAT["year"].astype(int)
             yt_year = yt_household_prices_without_VAT["year"]
             yt_price = yt_household_prices_without_VAT["price"]
-            f = interpolate.interp1d(ht_year, ht_price, fill_value = "extrapolate")
+            f = interpolate.interp1d(yt_year, yt_price, fill_value = "extrapolate")
             p_2021 = f(2021)
 
             yt_new_year = np.append(yt_year, 2021)
