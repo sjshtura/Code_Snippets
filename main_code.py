@@ -145,7 +145,7 @@ def calculate_mean_price(customer_type, val_yearly_demand):
                 ht_price = ht_household_prices_without_VAT["price"] * ht_factor
 
                 ht_new_year = np.append(ht_year, 2021)
-                ht_new_price = np.append(ht_price, val1 * ht_factor)
+                ht_new_price = np.append(ht_price, val1)
                 print(ht_new_year)
                 print(ht_new_price)
                 plotting(ht_new_year, ht_new_price, "HT Price", "Year", "Price", "images/HT Price.png")
@@ -157,12 +157,10 @@ def calculate_mean_price(customer_type, val_yearly_demand):
                 nt_price = nt_household_prices_without_VAT["price"] * nt_factor
 
                 nt_new_year = np.append(nt_year, 2021)
-                nt_new_price = np.append(nt_price, val2 * nt_factor)
+                nt_new_price = np.append(nt_price, val2)
                 print(nt_new_year)
                 print(nt_new_price)
                 plotting(nt_new_year, nt_new_price, "NT Price", "Year", "Price", "images/NT Price.png")
-                
-                
 
             elif (val_ht_nt == 0):
                 val1 = input("Enter yearly mean price for electricity: ")
@@ -178,8 +176,6 @@ def calculate_mean_price(customer_type, val_yearly_demand):
                 print(yt_new_price)
                 plotting(yt_new_year, yt_new_price, "Price", "Year", "Price", "images/Price.png")
                 # plotting(nt_new_year, nt_new_price, "NT Price", "Year", "Price", "images/NT Price.png")
-
-
 
         elif (val == 1):
             yt_household_prices_without_VAT = household_prices_without_VAT
@@ -197,7 +193,6 @@ def calculate_mean_price(customer_type, val_yearly_demand):
             plotting(yt_new_year, yt_new_price, "Price", "Year", "Price", "images/Price.png")
             # plotting(nt_new_year, nt_new_price, "NT Price", "Year", "Price", "images/NT Price.png")
 
-
     elif ((customer_type == 1) & (val_yearly_demand > 0) & (val_yearly_demand < 2000)):
         print("Do you already know your electricty price?")
         #print("Yes = 1 / No = 2")
@@ -214,23 +209,25 @@ def calculate_mean_price(customer_type, val_yearly_demand):
                 val1 = float(val1)
                 val2 = input("Enter NT value: ")
                 val2 = float(val2)
-                ht_industrie_prices_without_VAT["year"] = household_prices_without_VAT["year"].astype(int)
-                ht_year = ht_industrie_prices_without_VAT["year"]
-                ht_price = ht_industrie_prices_without_VAT["price"]
+                ht_household_prices_without_VAT = household_prices_without_VAT
+                ht_household_prices_without_VAT["year"] = ht_household_prices_without_VAT["year"].astype(int)
+                ht_year = ht_household_prices_without_VAT["year"]
+                ht_price = ht_household_prices_without_VAT["price"] * ht_factor
 
                 ht_new_year = np.append(ht_year, 2021)
-                ht_new_price = np.append(ht_price, val1 * ht_factor)
+                ht_new_price = np.append(ht_price, val1)
                 print(ht_new_year)
                 print(ht_new_price)
                 plotting(ht_new_year, ht_new_price, "HT Price", "Year", "Price", "images/HT Price.png")
                 # plotting(nt_new_year, nt_new_price, "NT Price", "Year", "Price", "images/NT Price.png")
 
+                nt_industrie_prices_without_VAT = household_prices_without_VAT
                 nt_industrie_prices_without_VAT["year"] = nt_industrie_prices_without_VAT["year"].astype(int)
                 nt_year = nt_industrie_prices_without_VAT["year"]
-                nt_price = nt_industrie_prices_without_VAT["price"]
+                nt_price = nt_industrie_prices_without_VAT["price"] * nt_factor
 
                 nt_new_year = np.append(nt_year, 2021)
-                nt_new_price = np.append(nt_price, val2 * nt_factor)
+                nt_new_price = np.append(nt_price, val2)
                 print(nt_new_year)
                 print(nt_new_price)
                 plotting(nt_new_year, nt_new_price, "NT Price", "Year", "Price", "images/NT Price.png")
@@ -238,7 +235,7 @@ def calculate_mean_price(customer_type, val_yearly_demand):
             elif (val_ht_nt == 0):
                 val1 = input("Enter yearly mean price for electricity: ")
                 val1 = float(val1)
-                ht_industrie_prices_without_VAT = industrie_prices_without_VAT
+                ht_industrie_prices_without_VAT = household_prices_without_VAT
                 ht_industrie_prices_without_VAT["year"] = ht_industrie_prices_without_VAT["year"].astype(int)
                 ht_year = ht_industrie_prices_without_VAT["year"]
                 ht_price = ht_industrie_prices_without_VAT["price"]
@@ -255,7 +252,7 @@ def calculate_mean_price(customer_type, val_yearly_demand):
         elif (val == 1):
             # val1 = input("Enter your preferred price: ")
             # val1 = float(val1)
-            ht_industrie_prices_without_VAT = industrie_prices_without_VAT
+            ht_industrie_prices_without_VAT = household_prices_without_VAT
             ht_industrie_prices_without_VAT["year"] = ht_industrie_prices_without_VAT["year"].astype(int)
             ht_year = ht_industrie_prices_without_VAT["year"]
             ht_price = ht_industrie_prices_without_VAT["price"]
@@ -269,7 +266,6 @@ def calculate_mean_price(customer_type, val_yearly_demand):
             print(ht_new_price)
             plotting(ht_new_year, ht_new_price, "Price", "Year", "Price", "images/Price.png")
             # plotting(nt_new_year, nt_new_price, "NT Price", "Year", "Price", "images/NT Price.png")
-           
 
     elif ((customer_type == 1) & (val_yearly_demand >= 2000) & (val_yearly_demand <= 20000)):
         print("Do you already know your electricty price?")
@@ -289,10 +285,10 @@ def calculate_mean_price(customer_type, val_yearly_demand):
                 val2 = float(val2)
                 ht_industrie_prices_without_VAT["year"] = ht_industrie_prices_without_VAT["year"].astype(int)
                 ht_year = ht_industrie_prices_without_VAT["year"]
-                ht_price = ht_industrie_prices_without_VAT["price"]
+                ht_price = ht_industrie_prices_without_VAT["price"] * ht_factor
 
                 ht_new_year = np.append(ht_year, 2021)
-                ht_new_price = np.append(ht_price, val1 * ht_factor)
+                ht_new_price = np.append(ht_price, val1)
                 print(ht_new_year)
                 print(ht_new_price)
                 plotting(ht_new_year, ht_new_price, "HT Price", "Year", "Price", "images/HT Price.png")
@@ -303,7 +299,7 @@ def calculate_mean_price(customer_type, val_yearly_demand):
                 nt_price = nt_industrie_prices_without_VAT["price"]
 
                 nt_new_year = np.append(nt_year, 2021)
-                nt_new_price = np.append(nt_price, val2 * nt_factor)
+                nt_new_price = np.append(nt_price * nt_factor, val2)
                 print(nt_new_year)
                 print(nt_new_price)
                 plotting(nt_new_year, nt_new_price, "NT Price", "Year", "Price", "images/NT Price.png")
@@ -342,8 +338,6 @@ def calculate_mean_price(customer_type, val_yearly_demand):
             print(ht_new_price)
             plotting(ht_new_year, ht_new_price, "Price", "Year", "Price", "images/Price.png")
             # plotting(nt_new_year, nt_new_price, "NT Price", "Year", "Price", "images/NT Price.png")
-
-        
 
     elif ((customer_type == 1) & (val_yearly_demand > 20000) & (val_yearly_demand <= 70000)):
         print("Do you already know your electricty price?")
@@ -367,7 +361,7 @@ def calculate_mean_price(customer_type, val_yearly_demand):
                 ht_price = ht_industrie_prices_without_VAT["price"] * ht_factor
 
                 ht_new_year = np.append(ht_year, 2021)
-                ht_new_price = np.append(ht_price, val1 * ht_factor)
+                ht_new_price = np.append(ht_price, val1)
                 print(ht_new_year)
                 print(ht_new_price)
                 plotting(ht_new_year, ht_new_price, "HT Price", "Year", "Price", "images/HT Price.png")
@@ -379,7 +373,7 @@ def calculate_mean_price(customer_type, val_yearly_demand):
                 nt_price = nt_industrie_prices_without_VAT["price"] * nt_factor
 
                 nt_new_year = np.append(nt_year, 2021)
-                nt_new_price = np.append(nt_price, val2 * nt_factor)
+                nt_new_price = np.append(nt_price, val2)
                 print(nt_new_year)
                 print(nt_new_price)
                 plotting(nt_new_year, nt_new_price, "NT Price", "Year", "Price", "images/NT Price.png")
@@ -439,7 +433,7 @@ def calculate_mean_price(customer_type, val_yearly_demand):
                 ht_price = ht_industrie_prices_without_VAT["price"] * ht_factor
 
                 ht_new_year = np.append(ht_year, 2021)
-                ht_new_price = np.append(ht_price, val1 * ht_factor)
+                ht_new_price = np.append(ht_price, val1)
                 print(ht_new_year)
                 print(ht_new_price)
                 plotting(ht_new_year, ht_new_price, "HT Price", "Year", "Price", "images/HT Price.png")
@@ -451,7 +445,7 @@ def calculate_mean_price(customer_type, val_yearly_demand):
                 nt_price = nt_industrie_prices_without_VAT["price"] * nt_factor
 
                 nt_new_year = np.append(nt_year, 2021)
-                nt_new_price = np.append(nt_price, val2 * nt_factor)
+                nt_new_price = np.append(nt_price, val2)
                 print(nt_new_year)
                 print(nt_new_price)
                 plotting(nt_new_year, nt_new_price, "NT Price", "Year", "Price", "images/NT Price.png")
@@ -500,9 +494,7 @@ def calculate_mean_price(customer_type, val_yearly_demand):
             print(ht_new_year)
             print(ht_new_price)
             plotting(ht_new_year, ht_new_price, "Price", "Year", "Price", "images/Price.png")
-            # plotting(nt_new_year, nt_new_price, "NT Price", "Year", "Price", "images/NT Price.png")
-
-        
+            # plotting(nt_new_year, nt_new_price, "NT Price", "Year", "Price", "images/NT Price.png")      
 
     elif ((customer_type == 1) & (val_yearly_demand > 150000)):
         print("Do you already know your electricty price?")
@@ -526,7 +518,7 @@ def calculate_mean_price(customer_type, val_yearly_demand):
                 ht_price = ht_industrie_prices_without_VAT["price"] * ht_factor
 
                 ht_new_year = np.append(ht_year, 2021)
-                ht_new_price = np.append(ht_price, val1 * ht_factor)
+                ht_new_price = np.append(ht_price, val1)
                 print(ht_new_year)
                 print(ht_new_price)
                 plotting(ht_new_year, ht_new_price, "HT Price", "Year", "Price", "images/HT Price.png")
@@ -538,7 +530,7 @@ def calculate_mean_price(customer_type, val_yearly_demand):
                 nt_price = nt_industrie_prices_without_VAT["price"] * nt_factor
 
                 nt_new_year = np.append(nt_year, 2021)
-                nt_new_price = np.append(nt_price, val2 * nt_factor)
+                nt_new_price = np.append(nt_price, val2)
                 print(nt_new_year)
                 print(nt_new_price)
                 plotting(nt_new_year, nt_new_price, "NT Price", "Year", "Price", "images/NT Price.png")
