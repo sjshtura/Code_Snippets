@@ -78,10 +78,10 @@ def calculate_mean_price(customer_type, val_yearly_demand):
     industrie_prices_without_VAT.index = industrie_prices_without_VAT.index.astype(str)
     industrie_prices_without_VAT.index= industrie_prices_without_VAT.index.str.slice(start = 0, stop = -6)
     
-    ht_industrie_prices_without_VAT = industrie_prices_without_VAT.price 
-    nt_industrie_prices_without_VAT = industrie_prices_without_VAT.price 
-    ht_industrie_prices_without_VAT = ht_industrie_prices_without_VAT.reset_index()
-    nt_industrie_prices_without_VAT = nt_industrie_prices_without_VAT.reset_index()
+    # ht_industrie_prices_without_VAT = industrie_prices_without_VAT.price 
+    # nt_industrie_prices_without_VAT = industrie_prices_without_VAT.price 
+    # ht_industrie_prices_without_VAT = ht_industrie_prices_without_VAT.reset_index()
+    # nt_industrie_prices_without_VAT = nt_industrie_prices_without_VAT.reset_index()
     
     industrie_prices_without_VAT = industrie_prices_without_VAT.reset_index()
     industrie_prices_without_VAT = industrie_prices_without_VAT[industrie_prices_without_VAT.year >= str(2016)]
@@ -284,6 +284,7 @@ def calculate_mean_price(customer_type, val_yearly_demand):
                 val1 = float(val1)
                 val2 = input("Enter NT value: ")
                 val2 = float(val2)
+                ht_industrie_prices_without_VAT = industrie_prices_without_VAT
                 ht_industrie_prices_without_VAT["year"] = ht_industrie_prices_without_VAT["year"].astype(int)
                 ht_year = ht_industrie_prices_without_VAT["year"]
                 ht_price = ht_industrie_prices_without_VAT["price"] * ht_factor
@@ -295,6 +296,7 @@ def calculate_mean_price(customer_type, val_yearly_demand):
                 plotting(ht_new_year, ht_new_price, "HT Price", "Year", "Price", "images/HT Price.png")
                 # plotting(nt_new_year, nt_new_price, "NT Price", "Year", "Price", "images/NT Price.png")
 
+                nt_industrie_prices_without_VAT = industrie_prices_without_VAT
                 nt_industrie_prices_without_VAT["year"] = nt_industrie_prices_without_VAT["year"].astype(int)
                 nt_year = nt_industrie_prices_without_VAT["year"]
                 nt_price = nt_industrie_prices_without_VAT["price"] * nt_factor
@@ -396,9 +398,9 @@ def calculate_mean_price(customer_type, val_yearly_demand):
 
         elif (val == 1):
             yt_industrie_prices_without_VAT = mid_industrie_prices
-            yt_industrie_prices_without_VAT["year"] = ht_industrie_prices_without_VAT["year"].astype(int)
-            yt_year = ht_industrie_prices_without_VAT["year"]
-            yt_price = ht_industrie_prices_without_VAT["price"]
+            yt_industrie_prices_without_VAT["year"] = yt_industrie_prices_without_VAT["year"].astype(int)
+            yt_year = yt_industrie_prices_without_VAT["year"]
+            yt_price = yt_industrie_prices_without_VAT["price"]
             f = interpolate.interp1d(yt_year, yt_price, fill_value = "extrapolate")
             p_2021 = f(2021)
 
