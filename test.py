@@ -77,10 +77,12 @@ def calculate_mean_price(customer_type, val_yearly_demand):
     industrie_prices_without_VAT = industrie_prices_without_VAT.resample('12M').mean()
     industrie_prices_without_VAT.index = industrie_prices_without_VAT.index.astype(str)
     industrie_prices_without_VAT.index= industrie_prices_without_VAT.index.str.slice(start = 0, stop = -6)
-    ht_industrie_prices_without_VAT = industrie_prices_without_VAT.price * ht_factor
-    nt_industrie_prices_without_VAT = industrie_prices_without_VAT.price * nt_factor
+    
+    ht_industrie_prices_without_VAT = industrie_prices_without_VAT.price 
+    nt_industrie_prices_without_VAT = industrie_prices_without_VAT.price 
     ht_industrie_prices_without_VAT = ht_industrie_prices_without_VAT.reset_index()
     nt_industrie_prices_without_VAT = nt_industrie_prices_without_VAT.reset_index()
+    
     industrie_prices_without_VAT = industrie_prices_without_VAT.reset_index()
     industrie_prices_without_VAT = industrie_prices_without_VAT[industrie_prices_without_VAT.year >= str(2016)]
 
@@ -144,7 +146,7 @@ def calculate_mean_price(customer_type, val_yearly_demand):
                 ht_year = ht_household_prices["year"]
                 ht_price = ht_household_prices["price"] * ht_factor
 
-                ht_new_year = np.append(ht_year, 2021)
+                ht_new_year = np.append(ht_year, (ht_year.iloc[-1] + 1))
                 ht_new_price = np.append(ht_price, val1)
                 print(ht_new_year)
                 print(ht_new_price)
@@ -156,7 +158,7 @@ def calculate_mean_price(customer_type, val_yearly_demand):
                 nt_year = nt_household_prices["year"]
                 nt_price = nt_household_prices["price"] * nt_factor
 
-                nt_new_year = np.append(nt_year, 2021)
+                nt_new_year = np.append(nt_year, (nt_year.iloc[-1] + 1))
                 nt_new_price = np.append(nt_price, val2)
                 print(nt_new_year)
                 print(nt_new_price)
@@ -170,7 +172,7 @@ def calculate_mean_price(customer_type, val_yearly_demand):
                 yt_year = yt_household_prices["year"]
                 yt_price = yt_household_prices["price"]
 
-                yt_new_year = np.append(yt_year, 2021)
+                yt_new_year = np.append(yt_year, (yt_year.iloc[-1] + 1))
                 yt_new_price = np.append(yt_price, (val1))
                 print(yt_new_year)
                 print(yt_new_price)
@@ -216,7 +218,7 @@ def calculate_mean_price(customer_type, val_yearly_demand):
                 ht_year = ht_industrie_prices_without_VAT["year"]
                 ht_price = ht_industrie_prices_without_VAT["price"] * ht_factor
 
-                ht_new_year = np.append(ht_year, 2021)
+                ht_new_year = np.append(ht_year, (ht_year.iloc[-1] + 1))
                 ht_new_price = np.append(ht_price, val1)
                 print(ht_new_year)
                 print(ht_new_price)
@@ -228,7 +230,7 @@ def calculate_mean_price(customer_type, val_yearly_demand):
                 nt_year = nt_industrie_prices_without_VAT["year"]
                 nt_price = nt_industrie_prices_without_VAT["price"] * nt_factor
 
-                nt_new_year = np.append(nt_year, 2021)
+                nt_new_year = np.append(nt_year, (nt_year.iloc[-1] + 1))
                 nt_new_price = np.append(nt_price, val2)
                 print(nt_new_year)
                 print(nt_new_price)
@@ -243,7 +245,7 @@ def calculate_mean_price(customer_type, val_yearly_demand):
                 yt_price = yt_industrie_prices_without_VAT["price"]
 
 
-                yt_new_year = np.append(yt_year, 2021)
+                yt_new_year = np.append(yt_year, (yt_year.iloc[-1] + 1))
                 yt_new_price = np.append(yt_price, (val1))
                 print(yt_new_year)
                 print(yt_new_price)
@@ -286,7 +288,7 @@ def calculate_mean_price(customer_type, val_yearly_demand):
                 ht_year = ht_industrie_prices_without_VAT["year"]
                 ht_price = ht_industrie_prices_without_VAT["price"] * ht_factor
 
-                ht_new_year = np.append(ht_year, 2021)
+                ht_new_year = np.append(ht_year, (ht_year.iloc[-1] + 1))
                 ht_new_price = np.append(ht_price, val1)
                 print(ht_new_year)
                 print(ht_new_price)
@@ -297,7 +299,7 @@ def calculate_mean_price(customer_type, val_yearly_demand):
                 nt_year = nt_industrie_prices_without_VAT["year"]
                 nt_price = nt_industrie_prices_without_VAT["price"] * nt_factor
 
-                nt_new_year = np.append(nt_year, 2021)
+                nt_new_year = np.append(nt_year, (nt_year.iloc[-1] + 1))
                 nt_new_price = np.append(nt_price, val2)
                 print(nt_new_year)
                 print(nt_new_price)
@@ -312,7 +314,7 @@ def calculate_mean_price(customer_type, val_yearly_demand):
                 yt_price = yt_industrie_prices_without_VAT["price"]
 
 
-                yt_new_year = np.append(yt_year, 2021)
+                yt_new_year = np.append(yt_year, (yt_year.iloc[-1] + 1))
                 yt_new_price = np.append(yt_price, (val1))
                 print(yt_new_year)
                 print(yt_new_price)
@@ -358,7 +360,7 @@ def calculate_mean_price(customer_type, val_yearly_demand):
                 ht_year = ht_industrie_prices_without_VAT["year"]
                 ht_price = ht_industrie_prices_without_VAT["price"] * ht_factor
 
-                ht_new_year = np.append(ht_year, 2021)
+                ht_new_year = np.append(ht_year, (ht_year.iloc[-1] + 1))
                 ht_new_price = np.append(ht_price, val1)
                 print(ht_new_year)
                 print(ht_new_price)
@@ -370,7 +372,7 @@ def calculate_mean_price(customer_type, val_yearly_demand):
                 nt_year = nt_industrie_prices_without_VAT["year"]
                 nt_price = nt_industrie_prices_without_VAT["price"] * nt_factor
 
-                nt_new_year = np.append(nt_year, 2021)
+                nt_new_year = np.append(nt_year, (nt_year.iloc[-1] + 1))
                 nt_new_price = np.append(nt_price, val2)
                 print(nt_new_year)
                 print(nt_new_price)
@@ -384,7 +386,7 @@ def calculate_mean_price(customer_type, val_yearly_demand):
                 yt_year = yt_industrie_prices_without_VAT["year"]
                 yt_price = yt_industrie_prices_without_VAT["price"]
 
-                yt_new_year = np.append(yt_year, 2021)
+                yt_new_year = np.append(yt_year, (yt_year.iloc[-1] + 1))
                 yt_new_price = np.append(yt_price, (val1))
                 print(yt_new_year)
                 print(yt_new_price)
@@ -429,7 +431,7 @@ def calculate_mean_price(customer_type, val_yearly_demand):
                 ht_year = ht_industrie_prices_without_VAT["year"]
                 ht_price = ht_industrie_prices_without_VAT["price"] * ht_factor
 
-                ht_new_year = np.append(ht_year, 2021)
+                ht_new_year = np.append(ht_year, (ht_year.iloc[-1] + 1))
                 ht_new_price = np.append(ht_price, val1)
                 print(ht_new_year)
                 print(ht_new_price)
@@ -441,7 +443,7 @@ def calculate_mean_price(customer_type, val_yearly_demand):
                 nt_year = nt_industrie_prices_without_VAT["year"]
                 nt_price = nt_industrie_prices_without_VAT["price"] * nt_factor
 
-                nt_new_year = np.append(nt_year, 2021)
+                nt_new_year = np.append(nt_year, (nt_year.iloc[-1] + 1))
                 nt_new_price = np.append(nt_price, val2)
                 print(nt_new_year)
                 print(nt_new_price)
@@ -455,7 +457,7 @@ def calculate_mean_price(customer_type, val_yearly_demand):
                 yt_year = yt_industrie_prices_without_VAT["year"]
                 yt_price = yt_industrie_prices_without_VAT["price"]
 
-                yt_new_year = np.append(yt_year, 2021)
+                yt_new_year = np.append(yt_year, (yt_year.iloc[-1] + 1))
                 yt_new_price = np.append(yt_price, val1)
                 print(yt_new_year)
                 print(yt_new_price)
@@ -500,7 +502,7 @@ def calculate_mean_price(customer_type, val_yearly_demand):
                 ht_year = ht_industrie_prices_without_VAT["year"]
                 ht_price = ht_industrie_prices_without_VAT["price"] * ht_factor
 
-                ht_new_year = np.append(ht_year, 2021)
+                ht_new_year = np.append(ht_year, (ht_year.iloc[-1] + 1))
                 ht_new_price = np.append(ht_price, val1)
                 print(ht_new_year)
                 print(ht_new_price)
@@ -512,7 +514,7 @@ def calculate_mean_price(customer_type, val_yearly_demand):
                 nt_year = nt_industrie_prices_without_VAT["year"]
                 nt_price = nt_industrie_prices_without_VAT["price"] * nt_factor
 
-                nt_new_year = np.append(nt_year, 2021)
+                nt_new_year = np.append(nt_year, (nt_year.iloc[-1] + 1))
                 nt_new_price = np.append(nt_price, val2)
                 print(nt_new_year)
                 print(nt_new_price)
@@ -526,7 +528,7 @@ def calculate_mean_price(customer_type, val_yearly_demand):
                 yt_year = yt_industrie_prices_without_VAT["year"]
                 yt_price = yt_industrie_prices_without_VAT["price"] 
 
-                yt_new_year = np.append(yt_year, 2021)
+                yt_new_year = np.append(yt_year, (yt_year.iloc[-1] + 1))
                 yt_new_price = np.append(yt_price, val1)
                 print(yt_new_year)
                 print(yt_new_price)
